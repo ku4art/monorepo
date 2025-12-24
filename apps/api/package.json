@@ -9,7 +9,9 @@
     "dev": "tsx watch ./src/* ./src/index.ts",
     "build": "rimraf ./dist && tsc --build tsconfig.json",
     "start": "node ./dist/index.js",
-    "check-ts": "tsc --noEmit"
+    "check-ts": "tsc --noEmit",
+    "gen:index": "vscode-generate-index-standalone src/ scripts/",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@prisma/client": "6.4.1",
@@ -21,16 +23,26 @@
     "zod": "^4.2.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@repo/typescript-config": "workspace:*",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.6",
     "@types/lodash": "^4.17.21",
     "@types/node": "22.15.3",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
     "prettier": "3.7.4",
     "rimraf": "6.1.2",
     "ts-node": "10.9.2",
     "tsx": "4.21.0",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "typescript-eslint": "^8.50.1",
+    "vscode-generate-index-standalone": "^1.7.1"
   },
   "volta": {
     "node": "20.17.0"

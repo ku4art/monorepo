@@ -1,8 +1,8 @@
+import cors from 'cors'
 import express from 'express'
 
-import { trpcRouter } from '@/router'
 import { applyTrpcToExpressApp } from '@/lib/trpc'
-import cors from 'cors'
+import { trpcRouter } from '@/router'
 
 const app = express()
 

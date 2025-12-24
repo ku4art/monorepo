@@ -1,7 +1,7 @@
-import { ideas } from "@/lib/mock"
-import { trpc } from "@/lib/trpc"
 import z from "zod"
 
+import { ideas } from "@/lib/mock"
+import { trpc } from "@/lib/trpc"
 
 export const getIdeaTrpcRoute = trpc.procedure
   .input(
