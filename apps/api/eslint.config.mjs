@@ -6,39 +6,39 @@ import pluginImport from 'eslint-plugin-import';
 import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default tseslint.config(
+  {ignores: ['node_modules', 'dist', '*.config.mjs']},
   {
-    ignores: ['node_modules', 'dist', '*.config.js'],
+    plugins: {
+      prettier: prettierPlugin
+    },
+    rules: {
+      'prettier/prettier': 'error'
+    }
+  },
+  eslintConfigPrettier,
+  {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.ts'],
     languageOptions: {
       globals: { ...globals.node, ...globals.es2022 },
     },
-    // languageOptions: {
-    //   parser: tseslint.parser,
-    //   parserOptions: {
-    //     project: './tsconfig.json',
-    //     sourceType: 'module',
-    //   },
-    // },
     plugins: {
-      prettier: prettierPlugin,
       import: pluginImport,
     },
     settings: {
       'import/resolver': {
         node: {
-          extensions: ['.js', '.ts', '.tsx'],
+          extensions: ['.js', '.ts'],
         },
         typescript: {
           project: './tsconfig.json',
         },
       },
       'import/parsers': {
-        '@typescript-eslint/parser': ['.ts', '.tsx'],
+        '@typescript-eslint/parser': ['.ts'],
       },
     },
     rules: {
-      ...eslintConfigPrettier.rules,
       // ✅ Сортировка импортов с поддержкой алиасов
       'import/order': [
         'error',
@@ -53,17 +53,17 @@ export default tseslint.config(
           ],
           pathGroups: [
             // Группируем React отдельно (опционально)
-            {
-              pattern: 'react',
-              group: 'external',
-              position: 'before',
-            },
-            {
-              pattern: 'react-dom',
-              group: 'external',
-              position: 'before',
-            },
-            // Твои алиасы → internal
+            // {
+            //   pattern: 'react',
+            //   group: 'external',
+            //   position: 'before',
+            // },
+            // {
+            //   pattern: 'react-dom',
+            //   group: 'external',
+            //   position: 'before',
+            // },
+            // алиасы → internal
             {
               pattern: '@/**',
               group: 'internal',
