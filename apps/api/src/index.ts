@@ -4,10 +4,21 @@ import express from 'express'
 import { applyTrpcToExpressApp } from '@/lib/trpc'
 import { trpcRouter } from '@/router'
 
-const app = express()
+import { type AppContext, createAppContext } from './lib/ctx'
 
-app.use(cors())
+void (async () => {
+  let ctx: AppContext | null = null
+  try {
+    ctx = createAppContext()
 
-applyTrpcToExpressApp(app, trpcRouter)
+    const app = express()
+    app.use(cors())
 
-app.listen(3000, () => console.info('API server started on http://localhost:3000'))
+    applyTrpcToExpressApp(app, ctx, trpcRouter)
+
+    app.listen(3000, () => console.info('API server started on http://localhost:3000'))
+  } catch (error) {
+    console.log(error)
+    ctx?.stop()
+  }
+})()

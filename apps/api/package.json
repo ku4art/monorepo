@@ -11,15 +11,20 @@
     "start": "node ./dist/index.js",
     "check-ts": "tsc --noEmit",
     "gen:index": "vscode-generate-index-standalone src/ scripts/",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "prisma:gen": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prepare": "prisma:gen"
   },
   "dependencies": {
     "@prisma/client": "6.4.1",
     "@trpc/server": "11.8.0",
     "cors": "2.8.5",
+    "date-fns": "^4.1.0",
     "express": "5.2.1",
     "lodash": "^4.17.21",
     "prisma": "6.4.1",
+    "superjson": "^2.2.6",
     "zod": "^4.2.1"
   },
   "devDependencies": {
@@ -36,15 +41,16 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.5.0",
-    "prettier": "3.7.4",
     "rimraf": "6.1.2",
     "ts-node": "10.9.2",
     "tsx": "4.21.0",
-    "typescript": "5.9.2",
     "typescript-eslint": "^8.50.1",
     "vscode-generate-index-standalone": "^1.7.1"
   },
   "volta": {
     "node": "20.17.0"
+  },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
   }
 }
