@@ -8,14 +8,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  email    String @unique
+  password String
+
+  name    String? @default("Unknown name")
+  picture String? @default("/uploads/no-user-img.png")
+  bio     String?
+
+  posts Post[]
+
+  @@map("user")
+}
+
 model Post {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  nick        String?
-  name        String?
+  title       String?
+  img         String?
   description String?
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String? @map("user_id")
 
   @@map("post")
 }
