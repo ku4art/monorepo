@@ -6,11 +6,11 @@ import { zCreatePostInputSchema } from './input'
 export const createPostTrpcRoute = trpc.procedure.input(zCreatePostInputSchema).mutation(async ({ input, ctx }) => {
   const exPost = await ctx.prisma.post.findFirst({
     where: {
-      name: input.name,
+      title: input.title,
     },
   })
   if (exPost) {
-    throw Error('Post already exists')
+    throw new Error('Post already exists')
   }
   await ctx.prisma.post.create({
     data: input,
